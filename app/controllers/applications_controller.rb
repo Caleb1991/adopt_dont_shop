@@ -9,6 +9,10 @@ class ApplicationsController < ApplicationController
     @pet_apps = desired_pets.map do |pet_application|
       Pet.find(pet_application.pet_id)
     end.uniq
+
+    if params[:name] != nil
+      @pets = Pet.where('name = ?', params[:name]).all
+    end
   end
 
   def new

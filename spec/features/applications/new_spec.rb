@@ -25,4 +25,23 @@ RSpec.describe 'Applications New Page' do
     expect(page).to have_content(80003)
     expect(current_path).to eq("/applications/#{Application.all.last[:id]}")
   end
+
+  xit 'displays error message if all fields are not completed' do
+    visit '/applications/new'
+
+    expect(page).to have_content('Name')
+    expect(page).to have_content('Street Address')
+    expect(page).to have_content('City')
+    expect(page).to have_content('State')
+    expect(page).to have_content('Zip Code')
+
+    fill_in 'Name', with: 'Roald'
+    fill_in 'City', with: 'Westminster'
+    fill_in 'State', with: 'Colorado'
+    fill_in 'Zip Code', with: 80003
+
+    click_on('Submit Application')
+
+    expect(current_path).to eq('/applications/new')
+  end
 end
