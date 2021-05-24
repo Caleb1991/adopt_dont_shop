@@ -8,3 +8,14 @@
   <p>Pet(s) They Are Wanting To Adopt: <% @pet_apps.each do |pet| %></p>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}", method: :get %>
   <% end %>
+  <h4>Add a Pet to This Application:</h4>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |f| %>
+<%= f.label :name, "Pet Name" %>
+<%= f.text_field :name %>
+<%= f.submit 'Submit' %>
+<% end %>
+<% if @pets != nil %>
+<% @pets.each do |pet| %>
+<%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+<% end %>
+<% end %>
