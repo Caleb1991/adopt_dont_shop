@@ -1,5 +1,5 @@
 class PetApplications < ApplicationController
-  def index
+  def create
     binding.pry
   end
 end

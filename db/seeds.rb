@@ -12,6 +12,12 @@ VeterinaryOffice.destroy_all
 @pet_2 = @shelter_1.pets.create!(adoptable: false, age: 7, breed: 'Bernese Mountain Dog', name: 'Watermelon')
 @pet_3 = @shelter_2.pets.create!(adoptable: true, age: 1, breed: 'Golden Retriever', name: 'Sir William Wallace')
 @pet_4 = @shelter_2.pets.create!(adoptable: true, age: 5, breed: 'Border Collie', name: 'Bobby Mounahan')
+@pet_5 = @shelter_2.pets.create!(adoptable: true, age: 4, breed: 'Border Collie', name: 'Larry')
+@pet_6 = @shelter_2.pets.create!(adoptable: true, age: 7, breed: 'Border Collie', name: 'Cucumber')
+@pet_7 = @shelter_2.pets.create!(adoptable: true, age: 8, breed: 'Border Collie', name: 'Milkshake')
+@pet_8 = @shelter_2.pets.create!(adoptable: true, age: 1, breed: 'Border Collie', name: 'Rory')
+@pet_9 = @shelter_2.pets.create!(adoptable: true, age: 3, breed: 'Border Collie', name: 'Dr. Who')
+@pet_10 = @shelter_2.pets.create!(adoptable: true, age: 2, breed: 'Border Collie', name: 'Swan')
 
 @vet_office_1 = VeterinaryOffice.create!(boarding_services: true, max_patient_capacity: 15, name: 'On The Mend')
 @vet_office_2 = VeterinaryOffice.create!(boarding_services: false, max_patient_capacity: 10, name: 'Petsopital')

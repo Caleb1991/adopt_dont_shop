@@ -8,13 +8,16 @@ class ApplicationsController < ApplicationController
     @desired_pets = PetApplication.where('application_id = ?', @application.id)
     @pet_apps = @desired_pets.map do |pet_application|
       Pet.find(pet_application.pet_id)
-      # binding.pry
     end.uniq
 
     if params[:name] != nil
       @pets = Pet.where('name = ?', params[:name]).all
     end
-    # binding.pry
+  end
+
+  def new_pet
+    PetApplication.create(pet_id: params[:new_pet_id], application_id: params[:id])
+    redirect_to "/applications/#{params[:id]}"
   end
 
   def new
