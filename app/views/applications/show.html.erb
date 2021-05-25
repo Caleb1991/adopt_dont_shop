@@ -19,5 +19,6 @@
 <% if @pets != nil %>
 <% @pets.each do |pet| %>
 <%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+<%= button_to "Add #{pet.name}", "/applications/#{@application.id}?new_pet_id=#{pet.id}", method: :post, local: true %>
 <% end %>
 <% end %>
