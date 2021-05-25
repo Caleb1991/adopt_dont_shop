@@ -18,6 +18,7 @@ RSpec.describe 'Application Show Page' do
 
     @application_1 = Application.create!(name: 'Roald Marshallsen', state: 'Colorado', city: 'Arvada', address: '1744 N. Pole Ln.', zip_code: 80004, description: 'Im a cool guy', status: 'Pending')
     @application_2 = Application.create!(name: 'Matt Smith', state: 'Colorado', city: 'Westminster', address: '2314 Gamble Oak St.', zip_code: 80003, description: 'Because adopting is cool', status: 'In Progress')
+    @application_3 = Application.create!(name: 'Larry', state: 'Colorado', city: 'Westminster', address: '1623 Gamble Oak St.', zip_code: 80233, description: 'I love animals', status: 'In Progress')
 
     @pet_app_1 = PetApplication.create!(pet_id: @pet_1.id, application_id: @application_1.id)
     @pet_app_2 = PetApplication.create!(pet_id: @pet_2.id, application_id: @application_1.id)
@@ -67,11 +68,17 @@ RSpec.describe 'Application Show Page' do
     expect(page).to_not have_link(@pet_4.name)
   end
 
-  it 'has a button to add pet' do
+  xit 'has a button to add pet' do
     visit "/applications/#{@application_1.id}"
 
     fill_in :name, with: 'Huey'
 
     expect(page).to have_button('Add Huey')
+  end
+
+  it 'does not have a submit application button if no pets are included' do
+    visit "/applications/#{@application_3.id}"
+
+    expect(page).to_not have_button('Submit Application')
   end
 end
