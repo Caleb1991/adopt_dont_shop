@@ -15,3 +15,9 @@
 <%= f.text_field :name %>
 <%= f.submit 'Submit' %>
 <% end %>
+
+<% if @pets != nil %>
+<% @pets.each do |pet| %>
+<%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
+<% end %>
+<% end %>

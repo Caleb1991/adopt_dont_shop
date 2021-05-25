@@ -1,10 +1,5 @@
-
-<% if @pets != nil %>
-<% @pets.each do |pet| %>
-<%= link_to "#{pet.name}", "/pets/#{pet.id}" %>
 <%= button_to "Add #{pet.name}", '/pet_applications', method: :post, local: true %>
-<% end %>
-<% end %>
+
 
 <% if @desired_pets.count > 0 %>
 <%= form_with url: "/applications/#{@application.id}", method: :post, local: true do |f| %>
