@@ -16,8 +16,8 @@ RSpec.describe 'Application Show Page' do
     @pet_6 = @shelter_2.pets.create!(adoptable: true, age: 3, breed: 'Goldent Retriever', name: 'Huey')
     @pet_7 = @shelter_2.pets.create!(adoptable: true, age: 7, breed: 'Border Collie', name: 'Huey')
 
-    @application_1 = Application.create!(name: 'Roald Marshallsen', state: 'Colorado', city: 'Arvada', address: '1744 N. Pole Ln.', zip_code: 80004, description: 'Im a cool guy', status: 'Pending')
-    @application_2 = Application.create!(name: 'Matt Smith', state: 'Colorado', city: 'Westminster', address: '2314 Gamble Oak St.', zip_code: 80003, description: 'Because adopting is cool', status: 'In Progress')
+    @application_1 = Application.create!(name: 'Roald Marshallsen', state: 'Colorado', city: 'Arvada', address: '1744 N. Pole Ln.', zip_code: 80004, status: 'Pending')
+    @application_2 = Application.create!(name: 'Matt Smith', state: 'Colorado', city: 'Westminster', address: '2314 Gamble Oak St.', zip_code: 80003, status: 'In Progress')
     @application_3 = Application.create!(name: 'Larry', state: 'Colorado', city: 'Westminster', address: '1623 Gamble Oak St.', zip_code: 80233, description: 'I love animals', status: 'In Progress')
 
     @pet_app_1 = PetApplication.create!(pet_id: @pet_1.id, application_id: @application_1.id)
@@ -80,5 +80,23 @@ RSpec.describe 'Application Show Page' do
     visit "/applications/#{@application_3.id}"
 
     expect(page).to_not have_button('Submit Application')
+  end
+
+  it 'can submit an application' do
+    visit "/applications/#{@application_2.id}"
+
+    click_button 'Submit Application'
+
+    expect(page).to have_content('Description must be filled out')
+
+    fill_in :description, with: 'Because adopting is cool'
+
+    click_button 'Submit Application'
+
+    expect(current_path).to eq("/applications/#{@application_2.id}")
+
+    expect(page).to have_content('Because adopting is cool')
+    expect(page).to have_content('Pending')
+    expect(page).to_not have_content('Add a Pet to This Application:')
   end
 end
