@@ -5,14 +5,16 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    desired_pets = PetApplication.where('application_id = ?', @application.id)
-    @pet_apps = desired_pets.map do |pet_application|
+    @desired_pets = PetApplication.where('application_id = ?', @application.id)
+    @pet_apps = @desired_pets.map do |pet_application|
       Pet.find(pet_application.pet_id)
+      # binding.pry
     end.uniq
 
     if params[:name] != nil
       @pets = Pet.where('name = ?', params[:name]).all
     end
+    # binding.pry
   end
 
   def new

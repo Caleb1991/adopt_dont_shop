@@ -66,4 +66,12 @@ RSpec.describe 'Application Show Page' do
     expect(page).to have_link(@pet_7.name)
     expect(page).to_not have_link(@pet_4.name)
   end
+
+  it 'has a button to add pet' do
+    visit "/applications/#{@application_1.id}"
+
+    fill_in :name, with: 'Huey'
+
+    expect(page).to have_button('Add Huey')
+  end
 end
