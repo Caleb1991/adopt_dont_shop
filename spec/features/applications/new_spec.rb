@@ -26,7 +26,7 @@ RSpec.describe 'Applications New Page' do
     expect(current_path).to eq("/applications/#{Application.all.last[:id]}")
   end
 
-  xit 'displays error message if all fields are not completed' do
+  it 'displays error message if all fields are not completed' do
     visit '/applications/new'
 
     expect(page).to have_content('Name')
@@ -42,6 +42,8 @@ RSpec.describe 'Applications New Page' do
 
     click_on('Submit Application')
 
-    expect(current_path).to eq('/applications/new')
+    expect(page).to have_content("Address can't be blank")
+
+    expect(current_path).to eq('/applications')
   end
 end
