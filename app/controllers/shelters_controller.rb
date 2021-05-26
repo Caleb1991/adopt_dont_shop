@@ -60,7 +60,9 @@ class SheltersController < ApplicationController
   end
 
   def admin
-    @shelters = Shelter.find_by_sql('SELECT  "shelters".* FROM "shelters" ORDER BY "shelters"."name" DESC')
+    @shelters = Shelter.sql_query_reverse_order
+
+    @shelters_with_pending = Shelter.pending_applications
   end
 
   private

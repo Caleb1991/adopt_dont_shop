@@ -21,6 +21,12 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+
+    @app_1 = Application.create!(name: 'Lando', state: 'Colorado', city: 'Commerce City', zip_code: 12433, address: '9033 Garrison St.', description: 'hey', status: 'Pending')
+    @app_2 = Application.create!(name: 'Luke', state: 'Colorado', city: 'Lakewood', zip_code: 99948, address: '8293 Garrison St.', description: 'hello', status: 'Pending')
+
+    @pet_app_1 = PetApplication.create!(pet_id: @pet_1.id, application_id: @app_1.id)
+    @pet_app_2 = PetApplication.create!(pet_id: @pet_3.id, application_id: @app_2.id)
   end
 
   describe 'class methods' do
@@ -29,6 +35,18 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.search("Fancy")).to eq([@shelter_3])
       end
     end
+
+      describe '#pending_applications' do
+        it 'returns all shelters with pending applications' do
+          expect(Shelter.pending_applications).to eq([@shelter_1, @shelter_3])
+        end
+      end
+
+      describe '#sql_query_reverse_order' do
+        it 'returns all shelters in reverse alphabetical order' do
+          expect(Shelter.sql_query_reverse_order).to eq([@shelter_2, @shelter_3, @shelter_1])
+        end
+      end
 
     describe '#order_by_recently_created' do
       it 'returns shelters with the most recently created first' do

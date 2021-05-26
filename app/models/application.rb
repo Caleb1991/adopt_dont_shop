@@ -1,6 +1,7 @@
 class Application < ApplicationRecord
   has_many :pet_applications, dependent: :destroy
-  has_many :pets, through: :pet_applications, dependent: :destroy
+  has_many :pets, through: :pet_applications
+  has_many :shelters, through: :pets
   # after_initialize status: 'In Progress'
   # after_initialize description: ' '
 
