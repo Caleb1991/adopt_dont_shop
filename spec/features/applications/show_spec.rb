@@ -16,7 +16,7 @@ RSpec.describe 'Application Show Page' do
     @pet_6 = @shelter_2.pets.create!(adoptable: true, age: 3, breed: 'Goldent Retriever', name: 'Huey')
     @pet_7 = @shelter_2.pets.create!(adoptable: true, age: 7, breed: 'Border Collie', name: 'Huey')
 
-    @application_1 = Application.create!(name: 'Roald Marshallsen', state: 'Colorado', city: 'Arvada', address: '1744 N. Pole Ln.', zip_code: 80004, status: 'Pending')
+    @application_1 = Application.create!(name: 'Roald Marshallsen', state: 'Colorado', city: 'Arvada', address: '1744 N. Pole Ln.', zip_code: 80004, status: 'In Progress')
     @application_2 = Application.create!(name: 'Matt Smith', state: 'Colorado', city: 'Westminster', address: '2314 Gamble Oak St.', zip_code: 80003, status: 'In Progress')
     @application_3 = Application.create!(name: 'Larry', state: 'Colorado', city: 'Westminster', address: '1623 Gamble Oak St.', zip_code: 80233, description: 'I love animals', status: 'In Progress')
 
@@ -64,14 +64,17 @@ RSpec.describe 'Application Show Page' do
 
     fill_in :name, with: 'Huey'
 
-    expect(page).to have_link(@pet_7.name)
+    click_on 'Submit'
+
+    expect(page).to have_link('Huey')
     expect(page).to_not have_link(@pet_4.name)
   end
 
-  xit 'has a button to add pet' do
+  it 'has a button to add pet' do
     visit "/applications/#{@application_1.id}"
 
     fill_in :name, with: 'Huey'
+    click_on 'Submit'
 
     expect(page).to have_button('Add Huey')
   end
@@ -87,8 +90,6 @@ RSpec.describe 'Application Show Page' do
 
     click_button 'Submit Application'
 
-    expect(page).to have_content('Description must be filled out')
-
     fill_in :description, with: 'Because adopting is cool'
 
     click_button 'Submit Application'
@@ -98,5 +99,30 @@ RSpec.describe 'Application Show Page' do
     expect(page).to have_content('Because adopting is cool')
     expect(page).to have_content('Pending')
     expect(page).to_not have_content('Add a Pet to This Application:')
+    expect(page).to_not have_content('Submit Application')
+  end
+
+  it 'returns pets with partial matches' do
+    visit "/applications/#{@application_3.id}"
+
+    expect(page).to_not have_link('Huey')
+
+    fill_in :name, with: 'Hu'
+
+    click_on 'Submit'
+
+    expect(page).to have_link('Huey')
+  end
+
+  it 'returns pets case insensitive' do
+    visit "/applications/#{@application_3.id}"
+
+    expect(page).to_not have_link('Huey')
+
+    fill_in :name, with: 'hu'
+
+    click_on 'Submit'
+
+    expect(page).to have_link('Huey')
   end
 end
