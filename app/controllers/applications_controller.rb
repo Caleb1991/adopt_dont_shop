@@ -11,7 +11,7 @@ class ApplicationsController < ApplicationController
     end.uniq
 
     if params[:name] != nil
-      @pets = Pet.where('name = ?', params[:name]).all
+      @pets = Pet.where('lower(name) like ?', "%#{params[:name].downcase}%").all
     end
   end
 
