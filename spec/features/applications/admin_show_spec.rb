@@ -24,8 +24,56 @@ RSpec.describe 'Admin Application Show Page' do
     @pet_app_5 = PetApplication.create!(pet_id: @pet_4.id, application_id: @application_2.id)
   end
 
+  it 'shows all pets associated with application' do
+    visit "/admin/applications/#{@application_1.id}"
+
+    expect(page).to have_content(@pet_1.name)
+    expect(page).to have_content(@pet_2.name)
+    expect(page).to have_content(@pet_3.name)
+    expect(page).to_not have_content(@pet_4.name)
+  end
+
   it 'Shows a button to approve a pet' do
     visit "/admin/applications/#{@application_1.id}"
 
+    expect(page).to have_button('Approve Huey')
+  end
+
+  it 'Shows a button to reject pet' do
+    visit "/admin/applications/#{@application_1.id}"
+
+    expect(page).to have_button('Reject Huey')
+  end
+
+  it 'changes pet application status to approved when approving application' do
+    visit "/admin/applications/#{@application_1.id}"
+
+    click_on 'Approve Huey'
+
+    expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+    expect(page).to have_content('Huey Approved')
+  end
+
+  it 'changes pet application status to rejected when rejecting application' do
+    visit "/admin/applications/#{@application_1.id}"
+
+    click_on 'Reject Huey'
+
+    expect(current_path).to eq("/admin/applications/#{@application_1.id}")
+    expect(page).to have_content('Huey Rejected')
+  end
+
+  it 'doesnt affect the same pet on another application' do
+    visit "/admin/applications/#{@application_1.id}"
+
+    click_on 'Reject Huey'
+
+    expect(page).to have_content('Huey Rejected')
+
+    visit "/admin/applications/#{@application_2.id}"
+
+    click_on 'Approve Huey'
+
+    expect(page).to have_content('Huey Approved')
   end
 end
