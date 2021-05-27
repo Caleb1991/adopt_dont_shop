@@ -54,7 +54,7 @@ class ApplicationsController < ApplicationController
 
     pet_app = PetApplication.where('pet_id = ? AND application_id = ?', pet_id, app_id)
 
-    pet_app.update(status: 'Approved')
+    pet_app.update(application_status: 'Approved')
 
     redirect_to "/admin/applications/#{app_id}"
   end
@@ -65,7 +65,7 @@ class ApplicationsController < ApplicationController
 
     pet_app = PetApplication.where('pet_id = ? AND application_id = ?', pet_id, app_id)
 
-    pet_app.update(status: 'Rejected')
+    pet_app.update(application_status: 'Rejected')
 
     redirect_to "/admin/applications/#{app_id}"
   end

@@ -1,12 +1,12 @@
 <h1><%= "#{@application.name}'s Application" %></h1>
 
 <% @pets.each do |pet| %>
-<% if PetApplication.where('pet_id = ? AND application_id = ?', pet.id, @application.id).first.status == 'Pending' %>
+<% if PetApplication.application_pending(pet.id, @application.id) %>
   <p><%= pet.name %><%= button_to "Approve #{pet.name}", "/applications/approve?pet_id=#{pet.id}&&id=#{@application.id}", method: :patch, local: true %></p>
   <p><%= button_to "Reject #{pet.name}", "/applications/reject?pet_id=#{pet.id}&&id=#{@application.id}", method: :patch, local: true %></p>
-<% elsif PetApplication.where('pet_id = ? AND application_id = ?', pet.id, @application.id).first.status == 'Approved' %>
+<% elsif PetApplication.application_approved(pet.id, @application.id) %>
   <p><%= pet.name %> Approved</p>
-<% elsif PetApplication.where('pet_id = ? AND application_id = ?', pet.id, @application.id).first.status == 'Rejected' %>
+<% elsif PetApplication.application_rejected(pet.id, @application.id) %>
   <p><%= pet.name %> Rejected</p>
 <% end %>
 <% end %>
