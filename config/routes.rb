@@ -44,6 +44,10 @@ Rails.application.routes.draw do
   patch '/applications/:id/app_submit', to: 'applications#submit_app'
 
   post '/pet_applications', to: 'pet_applications#create'
+  patch '/applications/approve', to: 'applications#admin_approve'
+  patch '/applications/reject', to: 'applications#admin_reject'
 
   get '/admin/shelters', to: 'shelters#admin'
+
+  get '/admin/applications/:id', to: 'applications#admin_show'
 end
