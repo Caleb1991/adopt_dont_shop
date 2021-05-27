@@ -32,6 +32,12 @@ RSpec.describe Pet, type: :model do
         expect(Pet.adoptable).to eq([@pet_1, @pet_2])
       end
     end
+
+    describe '#case_insensitive_partial_search' do
+      it 'returns pets that are partial matches case insensitive' do
+        expect(Pet.case_insensitive_partial_search('mR')).to eq([@pet_1])
+      end
+    end
   end
 
   describe 'instance methods' do

@@ -24,7 +24,7 @@ RSpec.describe 'Application Show Page' do
     @pet_app_2 = PetApplication.create!(pet_id: @pet_2.id, application_id: @application_1.id)
     @pet_app_3 = PetApplication.create!(pet_id: @pet_3.id, application_id: @application_1.id)
     @pet_app_4 = PetApplication.create!(pet_id: @pet_1.id, application_id: @application_2.id)
-    @pet_app_4 = PetApplication.create!(pet_id: @pet_4.id, application_id: @application_2.id)
+    @pet_app_5 = PetApplication.create!(pet_id: @pet_4.id, application_id: @application_2.id)
   end
 
   it 'Shows only the given applications attributes' do
