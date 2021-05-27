@@ -27,7 +27,7 @@ VeterinaryOffice.destroy_all
 @veterinarian_3 = @vet_office_2.veterinarians.create!(on_call: false, review_rating: 4, name: 'Stephanie Lastname')
 @veterinarian_4 = @vet_office_2.veterinarians.create!(on_call: true, review_rating: 5, name: 'Roald Penguin')
 
-@app_1 = Application.create!(name: 'Bryen Withak', state: 'Colorado', city: 'Arvada', zip_code: 80004, address: '1121 Allison St.')
+@app_1 = Application.create!(name: 'Roald Roaldersun', state: 'Colorado', city: 'Arvada', zip_code: 80004, address: '1121 Allison St.', description: 'hey', status: 'Pending')
 @app_2 = Application.create!(name: 'Robert Bobert', state: 'Colorado', city: 'Brighton', zip_code: 80601, address: '4133 Cherry St.')
 @app_3 = Application.create!(name: 'Miles Warner', state: 'Colorado', city: 'Westminster', zip_code: 80233, address: '7175 Gamble Oak St.')
 @app_4 = Application.create!(name: 'Ray Maestas', state: 'Colorado', city: 'Lakewood', zip_code: 80003, address: '2121 Garrison St.')
